@@ -64,7 +64,7 @@ MRuby::Gem::Specification.new('mruby-onig-regexp') do |spec|
           e['LD'] = "i686-w64-mingw32-ld #{spec.build.linker.flags.join(' ')}" if build.host_target == 'i686-w64-mingw32'
         end
 
-        run_command e, 'echo "$LD"'
+        run_command e, 'echo "fucking ld is $LD"'
         unless ENV['OS'] == 'Windows_NT'
           if build.kind_of? MRuby::CrossBuild
             host = "--host #{build.name}"
