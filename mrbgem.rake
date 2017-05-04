@@ -58,6 +58,11 @@ MRuby::Gem::Specification.new('mruby-onig-regexp') do |spec|
           'CXX' => "#{build.cxx.command} #{build.cxx.flags.join(' ')}",
           'LD' => "#{build.linker.command} #{build.linker.flags.join(' ')}",
           'AR' => build.archiver.command }
+
+        if build.kind_of? MRuby::CrossBuild
+          e['LD'] = "x86_64-w64-mingw32-ld #{spec.build.linker.flags.join(' ')}" if build.host_target == 'x86_64-w64-mingw32'
+          e['LD'] = "i686-w64-mingw32-ld #{spec.build.linker.flags.join(' ')}" if build.host_target == 'i686-w64-mingw32'
+        end
         unless ENV['OS'] == 'Windows_NT'
           if build.kind_of? MRuby::CrossBuild
             host = "--host #{build.name}"
